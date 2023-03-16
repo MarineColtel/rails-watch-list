@@ -1,0 +1,22 @@
+<div class="card-category">
+  <div>
+    <h3>Save any kind of movies</h3>
+    <p>Classic</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="d-flex justify-content-between mt-3 mb-3">
+    <h4>My lists</h4>
+    <%= link_to "Create a movie list", new_list_path, class: "btn-gradient" %>
+  </div>
+  <div class="container col-8">
+    <% @lists.each do |list| %>
+      <div class="movie-card-list">
+        <div>
+            <h5><%= link_to list.name, list_path(list) %></h5>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
