@@ -1,6 +1,10 @@
 <div class="container">
-  <h3><%= @list.name %></h3>
-  <%= cl_image_tag @list.photo.key, height: 300, crop: :fill %>
+  <div class ="card-category">
+    <% if @list.photo.attached? %>
+      <div class="movie-card-list m-3" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path @list.photo.key, height: 300 %>')">
+    <% end %>
+    <h3><%= @list.name %></h3>
+  </div>
 </div>
 
 <%= link_to "Add a movie", new_list_bookmark_path(@list), class: "btn-gradient" %>
@@ -10,5 +14,5 @@
 <% @list.bookmarks.each do |bookmark| %>
   <%= bookmark.comment %>
   <%= bookmark.movie.title %>
-  <%= button_to "Delete this movie", bookmark, method: :delete %>
+  <%= button_to "Delete this movie", bookmark, method: :delete, class: "btn-gradient" %>
 <% end %>
