@@ -20,7 +20,7 @@ class BookmarksController < ApplicationController
   def destroy
     @bookmark = Bookmark.find(params[:id])
     @bookmark.destroy
-    redirect_to plant_path(@bookmark.plant), status: :see_other
+    redirect_to lists_path
   end
 
   private

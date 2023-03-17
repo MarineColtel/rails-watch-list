@@ -2,12 +2,13 @@
   <h3><%= @list.name %></h3>
   <%= cl_image_tag @list.photo.key, height: 300, crop: :fill %>
 </div>
-<%= link_to "Add a movie", new_list_bookmark_path(@list) %>
 
+<%= link_to "Add a movie", new_list_bookmark_path(@list), class: "btn-gradient" %>
+<%= link_to "Back to movie lists", lists_path, class: "btn-gradient" %>
 
-<%= link_to "Back to movie lists", lists_path %>
-
+<h4>My movies in <%= @list.name %></h4>
 <% @list.bookmarks.each do |bookmark| %>
   <%= bookmark.comment %>
   <%= bookmark.movie.title %>
+  <%= button_to "Delete this movie", bookmark, method: :delete %>
 <% end %>
