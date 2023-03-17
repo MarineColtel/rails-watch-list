@@ -2,6 +2,7 @@
   <h3>Enter the name of your new movie list</h3>
   <%= simple_form_for(@list) do |f| %>
     <%= f.input :name, required: true %>
+    <%= f.input :photo, as: :file %>
     <%= f.submit %>
   <% end %>
 </div>

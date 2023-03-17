@@ -10,11 +10,13 @@
     <h4>My lists</h4>
     <%= link_to "Create a movie list", new_list_path, class: "btn-gradient" %>
   </div>
-  <div class="container col-8">
+  <div>
     <% @lists.each do |list| %>
-      <div class="movie-card-list">
         <div>
-            <h5><%= link_to list.name, list_path(list) %></h5>
+          <% if list.photo.attached? %>
+            <%= cl_image_path list.photo.key, height: 300, crop: :fill %>
+          <% end %>
+          <h5><%= link_to list.name, list_path(list) %></h5>
         </div>
       </div>
     <% end %>
