@@ -12,3 +12,18 @@
   background: linear-gradient(#147EFF, #0F67DA);
   color: white;
 }
+
+.btn-delete {
+  color: #450920;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: end;
+}
+
+.btn-delete:hover {
+  border-radius: 4px;
+  padding: 4px;
+  background: linear-gradient(#450920, #a4133c);
+  transition: background 0.3s ease;
+  color: white;
+}

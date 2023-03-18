@@ -1,18 +1,61 @@
 <div class="container">
-  <div class ="card-category">
-    <% if @list.photo.attached? %>
-      <div class="movie-card-list m-3" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path @list.photo.key, height: 300 %>')">
-    <% end %>
+  <div class ="banner-list">
+    <div style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path @list.photo.key %>')">
     <h3><%= @list.name %></h3>
   </div>
 </div>
 
-<%= link_to "Add a movie", new_list_bookmark_path(@list), class: "btn-gradient" %>
+<%= link_to "Add a movie", list_path(@list), class: "btn-gradient mt-4" %>
 <%= link_to "Back to movie lists", lists_path, class: "btn-gradient" %>
 
-<h4>My movies in <%= @list.name %></h4>
-<% @list.bookmarks.each do |bookmark| %>
-  <%= bookmark.comment %>
-  <%= bookmark.movie.title %>
-  <%= button_to "Delete this movie", bookmark, method: :delete, class: "btn-gradient" %>
-<% end %>
+<div class="container col-6 mt-4">
+  <h3>Add a movie to your list</h3>
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.input :comment, required: true %>
+    <%= f.association :movie, required: true %>
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<h4 class="mt-4">My movies in <%= @list.name %> list</h4>
+<div class="container">
+  <div class="d-flex justify-content-around align-item-center mt-3 mb-3">
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="card-bookmark m-3">
+        <%= image_tag bookmark.movie.poster_url %>
+        <div class="card-bookmark-infos">
+          <div>
+            <div class="d-flex align-item-center">
+              <h2 class="me-3"><%= bookmark.movie.title %></h2>
+              <p>-<%= bookmark.movie.rating %></p>
+            </div>
+            <p><%= bookmark.movie.overview %></p>
+          </div>
+          <%= link_to "Delete", bookmark, method: :delete, class: "btn-delete" %>
+        </div>
+      </div>
+  <% end %>
+  </div>
+</div>
+
+<div class="container col-6 mt-4 mb-4">
+  <h3>Add a review about this list</h3>
+  <%= simple_form_for [@list, @review] do |f| %>
+    <%= f.input :comment, required: true %>
+    <%= f.input :rating, collection: (0..5), required: true %>
+    <%= f.submit %>
+  <% end %>
+</div>
+
+<div class="container">
+  <h4>Reviews</h4>
+  <div>
+    <% @list.reviews.each do |review| %>
+      <div class="d-flex justify-content-around align-item-center mt-3 mb-3">
+        <h6><%= review.rating %></h6>
+
+      </div>
+      <p id="review-comment"><em><%= review.comment %></em></p>
+    <% end %>
+  </div>
+</div>
